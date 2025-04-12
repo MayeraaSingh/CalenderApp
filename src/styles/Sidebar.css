@@ -1,0 +1,91 @@
+.sidebar {
+  width: 280px;
+  background-color: var(--color-bg-paper);
+  border-right: 1px solid var(--color-border);
+  padding: 24px 0;
+  overflow-y: auto;
+  height: 100vh;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.03);
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-light);
+  padding: 0 24px;
+  margin-bottom: 16px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.goal-list, .task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--color-primary);
+  opacity: 0.05;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.goal-item:hover::after {
+  width: 100%;
+}
+
+.goal-item:hover {
+  background-color: var(--color-bg-highlight);
+}
+
+.goal-item.selected {
+  background-color: var(--color-bg-highlight);
+  font-weight: 500;
+}
+
+.goal-item.selected::after {
+  width: 100%;
+  opacity: 0.08;
+}
+
+.goal-icon, .task-icon {
+  margin-right: 12px;
+  font-size: 16px;
+  z-index: 1;
+}
+
+.goal-name, .task-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  z-index: 1;
+}
+
+.loading, .error, .empty {
+  padding: 12px 24px;
+  color: var(--color-text-light);
+  font-size: 14px;
+  font-style: italic;
+} 
