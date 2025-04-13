@@ -18,7 +18,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? '*' : 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://calender-br3ajozel-mayeraas-projects.vercel.app', 'https://calender-br3ajozel-mayeraas-projects.vercel.app'] 
+    : 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
