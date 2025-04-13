@@ -190,5 +190,3 @@ calendar-app/
 ├── .env                   # Frontend environment variables
 └── package.json           # Dependencies and scripts
 ```
-
-- `DELETE /api/tasks/:id` - Delete a task

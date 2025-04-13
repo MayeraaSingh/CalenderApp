@@ -18,6 +18,13 @@ const localizer = momentLocalizer(moment);
 // Create DnD Calendar
 const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
+// Helper function to only log in development
+const devLog = (...args) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(...args);
+  }
+};
+
 const Calendar = () => {
   const dispatch = useDispatch();
   const { events } = useSelector(state => state.events);
@@ -40,7 +47,7 @@ const Calendar = () => {
         end: new Date(event.endTime),
         color: event.color || getCategoryColor(event.category),
       };
-      console.log('Formatted event:', formattedEvent.title, 
+      devLog('Formatted event:', formattedEvent.title, 
         'Start:', formattedEvent.start.toLocaleTimeString(),
         'End:', formattedEvent.end.toLocaleTimeString());
       return formattedEvent;
@@ -75,7 +82,7 @@ const Calendar = () => {
       // Find the goal color
       const goalColor = task.goalId?.color || '#3b82f6';
       
-      console.log(`Dropped task ${task.name} at ${startTime.toLocaleTimeString()} with color ${goalColor}`);
+      devLog(`Dropped task ${task.name} at ${startTime.toLocaleTimeString()} with color ${goalColor}`);
       
       // Open modal with pre-filled data
       setSelectedEvent({
@@ -100,7 +107,7 @@ const Calendar = () => {
   };
 
   const handleSelectSlot = (slotInfo) => {
-    console.log('Selected slot:', {
+    devLog('Selected slot:', {
       start: new Date(slotInfo.start).toLocaleString(),
       end: new Date(slotInfo.end).toLocaleString()
     });
@@ -110,13 +117,13 @@ const Calendar = () => {
   };
 
   const handleSelectEvent = (event) => {
-    console.log('Selected event:', event);
+    devLog('Selected event:', event);
     setSelectedEvent(event);
     setModalOpen(true);
   };
 
   const handleEventDrop = ({ event, start, end }) => {
-    console.log('Event dropped:', event, 'New start:', start, 'New end:', end);
+    devLog('Event dropped:', event, 'New start:', start, 'New end:', end);
     
     // Create a copy of the event with updated times
     const updatedEvent = {
@@ -133,7 +140,7 @@ const Calendar = () => {
   };
 
   const handleEventResize = ({ event, start, end }) => {
-    console.log('Event resized:', event, 'New start:', start, 'New end:', end);
+    devLog('Event resized:', event, 'New start:', start, 'New end:', end);
     
     // Create a copy of the event with updated times
     const updatedEvent = {

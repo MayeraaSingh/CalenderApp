@@ -16,6 +16,23 @@ const CATEGORY_ICONS = {
   social: '🎭'
 };
 
+// Helper function to only log in development
+const devLog = (...args) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(...args);
+  }
+};
+
+// Helper function to only log errors in development
+const devErrorLog = (...args) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(...args);
+  } else {
+    // In production, just log that an error occurred without details
+    console.error('Error occurred');
+  }
+};
+
 const EventModal = ({ isOpen, onClose, event, slotInfo, onDelete }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
@@ -32,14 +49,14 @@ const EventModal = ({ isOpen, onClose, event, slotInfo, onDelete }) => {
       setStartTime(new Date(event.startTime || event.start));
       setEndTime(new Date(event.endTime || event.end));
       
-      console.log('Modal opened with event:', {
+      devLog('Modal opened with event:', {
         title: event.title,
         start: new Date(event.startTime || event.start).toLocaleString(),
         end: new Date(event.endTime || event.end).toLocaleString(),
         color: event.color
       });
     } else if (slotInfo) {
-      console.log('Modal opened with slot:', {
+      devLog('Modal opened with slot:', {
         start: new Date(slotInfo.start).toLocaleString(),
         end: new Date(slotInfo.end).toLocaleString()
       });
@@ -88,18 +105,18 @@ const EventModal = ({ isOpen, onClose, event, slotInfo, onDelete }) => {
       eventData.color = event.color;
     }
 
-    console.log('Submitting event data:', eventData);
+    devLog('Submitting event data:', eventData);
 
     try {
       if (event && event._id) {
         dispatch(updateEvent({ id: event._id, eventData }))
           .unwrap()
           .then(() => {
-            console.log('Event updated successfully');
+            devLog('Event updated successfully');
             onClose();
           })
           .catch(err => {
-            console.error('Failed to update event:', err);
+            devErrorLog('Failed to update event:', err);
             setError(err.message || 'Failed to update event');
             setIsSubmitting(false);
           });
@@ -107,17 +124,17 @@ const EventModal = ({ isOpen, onClose, event, slotInfo, onDelete }) => {
         dispatch(createEvent(eventData))
           .unwrap()
           .then(() => {
-            console.log('Event created successfully');
+            devLog('Event created successfully');
             onClose();
           })
           .catch(err => {
-            console.error('Failed to create event:', err);
+            devErrorLog('Failed to create event:', err);
             setError(err.message || 'Failed to create event');
             setIsSubmitting(false);
           });
       }
     } catch (error) {
-      console.error('Exception in event submission:', error);
+      devErrorLog('Exception in event submission:', error);
       setError('An error occurred while processing your request');
       setIsSubmitting(false);
     }
