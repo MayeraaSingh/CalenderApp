@@ -45,21 +45,12 @@ A Google Calendar-like application built with React, Redux, and MongoDB Atlas.
 - npm or yarn
 - MongoDB Atlas account (or local MongoDB installation)
 
-### MongoDB Atlas Setup
-
-1. Create a free MongoDB Atlas account at [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-2. Create a new cluster (the free tier is sufficient)
-3. Set up database access with a username and password
-4. Set up network access (Allow access from anywhere for development)
-5. Get your connection string from the Connect button on your cluster
-6. Replace the placeholder MongoDB URI in .env files with your actual connection string
-
 ### Installation
 
 1. Clone the repository
 
 ```
-git clone https://github.com/your-username/calendar-app.git
+git clone  https://github.com/MayeraaSingh/CalenderApp.git
 cd calendar-app
 ```
 
